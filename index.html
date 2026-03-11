@@ -211,13 +211,19 @@ galia.moors@gmail.com<br>
 
 function play(id,start){
 
-let url="https://player.vimeo.com/video/"+id+"?autoplay=1";
+let isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+let url="https://player.vimeo.com/video/"+id;
 
 if(start>0){
-url+="&#t="+start+"s";
+url+="#t="+start+"s";
 }
 
-document.getElementById("player").innerHTML =
+if(!isMobile){
+url+=(url.includes("?")?"&":"?")+"autoplay=1";
+}
+
+document.getElementById("player").innerHTML=
 '<iframe src="'+url+'" allow="autoplay; fullscreen" allowfullscreen></iframe>';
 
 document.getElementById("videoModal").style.display="flex";
@@ -225,7 +231,7 @@ document.getElementById("videoModal").style.display="flex";
 }
 
 function closeModal(event){
-if(!event || event.target.id==="videoModal" || event.target.className==="close"){
+if(!event||event.target.id==="videoModal"||event.target.className==="close"){
 document.getElementById("videoModal").style.display="none";
 document.getElementById("player").innerHTML="";
 }
