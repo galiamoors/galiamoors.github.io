@@ -215,12 +215,12 @@ let isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
 let url="https://player.vimeo.com/video/"+id;
 
-if(start>0){
-url+="#t="+start+"s";
+if(!isMobile){
+url+="?autoplay=1";
 }
 
-if(!isMobile){
-url+=(url.includes("?")?"&":"?")+"autoplay=1";
+if(start>0){
+url+="#t="+start+"s";
 }
 
 document.getElementById("player").innerHTML=
